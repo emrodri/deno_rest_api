@@ -1,3 +1,4 @@
+import { RouterContext, v4 } from "../../deps.ts";
 import {
   productBadRequestResponse,
   productCreatedResponse,
@@ -10,88 +11,106 @@ import {
 } from "../responses/products.ts";
 
 import { Product } from "../types.ts";
-import { RouterContext } from "https://deno.land/x/oak/mod.ts";
-import inMemoryDb from "../storage/db.ts";
-import { v4 } from "https://deno.land/std/uuid/mod.ts";
-
-let { products } = inMemoryDb;
+import ProductsRepository from "../repositories/productsRepository.ts";
 
 // @desc    Get all products
 // @route   GET /api/v1/products
-const getProducts = ({ response }: RouterContext) => {
-  productsResponse(response, products);
-};
+const getProducts = (productsRepository: ProductsRepository) =>
+  ({ response }: any) => {
+    productsResponse(response, productsRepository.getProducts());
+  };
 
 // @desc    Get single product
 // @route   GET /api/v1/products/:id
-const getProduct = ({ response, params }: RouterContext) => {
-  const product: Product | undefined = products.find((p) => p.id === params.id);
-  if (!checkProductExists(product)) {
-    productNotFoundResponse(response);
-    return;
-  }
-  productResponse(response, product);
-};
+const getProduct = (productsRepository: ProductsRepository) =>
+  ({ response, params }: any) => {
+    if (!checkIdIsValid(params.id)) {
+      productBadRequestResponse(response, "Id is not valid");
+      return;
+    }
+    const product: Product | undefined = productsRepository.getProduct(
+      params.id,
+    );
+    if (!checkProductExists(product)) {
+      productNotFoundResponse(response);
+      return;
+    }
+    productResponse(response, product);
+  };
 
 // @desc    Add a product
 // @route   POST /api/v1/products
-const addProduct = async ({ request, response }: RouterContext) => {
-  const body = await request.body();
-  if (!request.hasBody) {
-    productBadRequestResponse(response, "No data for product");
-    return;
-  }
+const addProduct = (productsRepository: ProductsRepository) =>
+  async ({ request, response }: any) => {
+    const body = await request.body();
+    if (!request.hasBody) {
+      productBadRequestResponse(response, "No data for product");
+      return;
+    }
 
-  const product: Product = body.value;
-  product.id = v4.generate();
+    const product: Product = body.value;
+    product.id = v4.generate();
 
-  if (!checkIsProduct(product)) {
-    productNotValidResponse(response);
-    return;
-  }
+    if (!checkIsProduct(product)) {
+      productNotValidResponse(response);
+      return;
+    }
 
-  products = [...products, product];
-  productCreatedResponse(response);
-};
+    productsRepository.addProduct(product);
+    productCreatedResponse(response);
+  };
 
 // @desc    Update a product
 // @route   PUT /api/v1/products/:id
-const udpateProduct = async ({ request, response, params }: RouterContext) => {
-  const product: Product | undefined = products.find((p) => p.id === params.id);
-  const body = await request.body();
-  if (!request.hasBody) {
-    productBadRequestResponse(response, "No data for update product");
-    return;
-  }
-  if (!checkProductExists(product)) {
-    productNotFoundResponse(response);
-    return;
-  }
-  const updatedProduct = { ...product, ...body.value };
-  if (!checkIsProduct(updatedProduct)) {
-    productNotValidResponse(response);
-    return;
-  }
-  products = products.map((
-    p: Product,
-  ) => (p.id === params.id ? updatedProduct : p));
-  productUpdatedResponse(response);
-};
+const udpateProduct = (productsRepository: ProductsRepository) =>
+  async ({ request, response, params }: RouterContext) => {
+    if (!checkIdIsValid(params.id)) {
+      productBadRequestResponse(response, "Id is not valid");
+      return;
+    }
+    if (!request.hasBody) {
+      productBadRequestResponse(response, "No data for update product");
+      return;
+    }
+    const product: Product | undefined = productsRepository.getProduct(
+      params.id,
+    );
+    if (!checkProductExists(product)) {
+      productNotFoundResponse(response);
+      return;
+    }
+    const body = await request.body();
+    const updatedProduct = { ...product, ...body.value };
+    if (!checkIsProduct(updatedProduct)) {
+      productNotValidResponse(response);
+      return;
+    }
+    productsRepository.updatedProduct(params.id, product);
+    productUpdatedResponse(response);
+  };
 
 // @desc    Delete a product
 // @route   DELETE /api/v1/products/:id
-const deleteProduct = ({ response, params }: RouterContext) => {
-  const product: Product | undefined = products.find((p: Product) =>
-    p.id === params.id
-  );
-  if (!checkProductExists(product)) {
-    productNotFoundResponse(response);
-    return;
-  }
-  products = products.filter((p) => p.id !== params.id);
-  productDeleteResponse(response);
-};
+const deleteProduct = (productsRepository: ProductsRepository) =>
+  ({ response, params }: RouterContext) => {
+    if (!checkIdIsValid(params.id)) {
+      productBadRequestResponse(response, "Id is not valid");
+      return;
+    }
+    const product: Product | undefined = productsRepository.getProduct(
+      params.id,
+    );
+    if (!checkProductExists(product)) {
+      productNotFoundResponse(response);
+      return;
+    }
+    productsRepository.deleteProduct(params.id);
+    productDeleteResponse(response);
+  };
 
+const checkIdIsValid = (id: string | undefined): id is string => {
+  return typeof id !== "undefined";
+};
 const checkProductExists = (
   product: Product | undefined,
 ): product is Product => {

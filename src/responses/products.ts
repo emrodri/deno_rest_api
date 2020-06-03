@@ -7,12 +7,12 @@ import {
 } from "./common.ts";
 
 import { Product } from "../types.ts";
-import { Response } from "https://deno.land/x/oak/mod.ts";
+import { Response } from "../../deps.ts";
 
-const productResponse = (response: Response, product: Product) =>
+const productResponse = (response: any, product: Product) =>
   successResponse(response, product);
 
-const productsResponse = (response: Response, products: Product[]) =>
+const productsResponse = (response: any, products: Product[]) =>
   successResponse(response, products);
 
 const productBadRequestResponse = (response: Response, message: string) =>

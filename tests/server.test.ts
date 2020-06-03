@@ -1,6 +1,4 @@
-import { Application, Context, Router } from "https://deno.land/x/oak@master/mod.ts";
-
-import { superoak } from "https://deno.land/x/superoak@master/mod.ts";
+import { Application, Context, Router, superoak } from "../deps.ts";
 
 Deno.test("should launch application with routing", async () => {
   const router = new Router();

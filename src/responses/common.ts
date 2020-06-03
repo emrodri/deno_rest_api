@@ -1,4 +1,4 @@
-import { Response } from "https://deno.land/x/oak/mod.ts";
+import { Response } from "../../deps.ts";
 
 const HTTP_RESPONSE_OK = 200;
 const HTTP_RESPONSE_CREATED = 201;
