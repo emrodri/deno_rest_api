@@ -12,7 +12,12 @@ const createdResponse = (response: Response) => {
   response.body = { success: true };
 };
 
-const successResponse = (response: Response, data: any = undefined) => {
+const successResponse = (response: Response) => {
+  response.status = HTTP_RESPONSE_OK;
+  response.body = { success: true };
+};
+
+const successResponseWithData = (response: Response, data: any = undefined) => {
   response.status = HTTP_RESPONSE_OK;
   response.body = {
     success: true,
@@ -59,6 +64,7 @@ const serverErrorResponse = (
 };
 
 export {
+  successResponseWithData,
   successResponse,
   createdResponse,
   badRequestResponse,

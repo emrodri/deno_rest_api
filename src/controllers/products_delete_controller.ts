@@ -1,15 +1,16 @@
-import { isProduct, isProductId } from "../../domain/product.ts";
+import { isProduct, isProductId } from "../products/domain/product.ts";
 import {
   productBadRequestResponse,
   productDeleteResponse,
   productNotFoundResponse,
 } from "../responses/products.ts";
 
-import ProductsRepository from "../repositories/productsRepository.ts";
+import ProductsRepository from "../products/domain/productsRepository.ts";
+import deleteProductAction from "../products/domain/deleteProductAction.ts";
 
 // @desc    Delete a product
 // @route   DELETE /api/v1/products/:id
-const deleteProduct = (productsRepository: ProductsRepository) =>
+const productsDeleteController = (productsRepository: ProductsRepository) =>
   ({ response, params }: any) => {
     if (!isProductId(params.id)) {
       productBadRequestResponse(response, "Id is not valid");
@@ -20,8 +21,8 @@ const deleteProduct = (productsRepository: ProductsRepository) =>
       productNotFoundResponse(response);
       return;
     }
-    productsRepository.deleteProduct(params.id);
+    deleteProductAction(productsRepository, params.id);
     productDeleteResponse(response);
   };
 
-export default deleteProduct;
+export default productsDeleteController;

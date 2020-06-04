@@ -3,17 +3,18 @@ import {
   createdResponse,
   notFoundResponse,
   successResponse,
+  successResponseWithData,
   unprocessableEntityResponse,
 } from "./common.ts";
 
-import { Product } from "../../domain/product.ts";
+import { Product } from "../../src/products/domain/product.ts";
 import { Response } from "../../deps.ts";
 
 const productResponse = (response: any, product: Product) =>
-  successResponse(response, product);
+  successResponseWithData(response, product);
 
 const productsResponse = (response: any, products: Product[]) =>
-  successResponse(response, products);
+  successResponseWithData(response, products);
 
 const productBadRequestResponse = (response: Response, message: string) =>
   badRequestResponse(response, message);

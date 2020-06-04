@@ -1,4 +1,4 @@
-import { Product, isProduct, isProductId } from "../../domain/product.ts";
+import { Product, isProduct, isProductId } from "../products/domain/product.ts";
 import {
   productBadRequestResponse,
   productNotFoundResponse,
@@ -6,11 +6,12 @@ import {
   productUpdatedResponse,
 } from "../responses/products.ts";
 
-import ProductsRepository from "../repositories/productsRepository.ts";
+import ProductsRepository from "../products/domain/productsRepository.ts";
+import updateProductAction from "../products/domain/updateProductAction.ts";
 
 // @desc    Update a product
 // @route   PUT /api/v1/products/:id
-const udpateProduct = (productsRepository: ProductsRepository) =>
+const productsUpdateController = (productsRepository: ProductsRepository) =>
   async ({ request, response, params }: any) => {
     if (!params || !isProductId(params.id)) {
       productBadRequestResponse(response, "Id parameter is not valid");
@@ -31,8 +32,8 @@ const udpateProduct = (productsRepository: ProductsRepository) =>
       productNotValidResponse(response);
       return;
     }
-    productsRepository.updatedProduct(params.id, updatedProduct);
+    updateProductAction(productsRepository, updatedProduct, params.id);
     productUpdatedResponse(response);
   };
 
-export default udpateProduct;
+export default productsUpdateController;

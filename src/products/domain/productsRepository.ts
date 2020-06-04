@@ -1,4 +1,4 @@
-import { Product } from "../../domain/product.ts";
+import { Product } from "./product.ts";
 
 interface ProductsRepository {
   getProducts: () => Product[];

@@ -1,4 +1,4 @@
-import { Product } from "../../domain/product.ts";
+import { Product } from "../products/domain/product.ts";
 
 interface MemoryDatabase {
   products: Product[];

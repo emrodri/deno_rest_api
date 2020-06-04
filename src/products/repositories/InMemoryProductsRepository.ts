@@ -1,6 +1,6 @@
-import { Product } from "../../domain/product.ts";
-import ProductsRepository from "./productsRepository.ts";
-import inMemoryDb from "../storage/db.ts";
+import { Product } from "../domain/product.ts";
+import ProductsRepository from "../domain/productsRepository.ts";
+import inMemoryDb from "../../storage/db.ts";
 
 let { products } = inMemoryDb;
 
@@ -16,7 +16,9 @@ const productsRespository: ProductsRepository = {
     );
     products = [...updatedProducts];
   },
-  deleteProduct: (guid: string): void => {},
+  deleteProduct: (guid: string): void => {
+    products = products.filter((p: Product) => p.id !== guid);
+  },
 };
 
 export default productsRespository;
