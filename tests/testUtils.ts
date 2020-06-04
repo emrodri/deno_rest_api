@@ -28,7 +28,7 @@ const createContext = (contextOptions: ContextOptions = {}) => {
     },
     response: {
       body: "",
-    }
+    },
   };
   return { ...defaultContext, ...contextOptions };
 };
@@ -40,6 +40,6 @@ interface ContextOptions {
   response?: {
     body: string;
   };
-  params?: object | undefined
+  params?: object | undefined;
 }
 export { createTestProductRepository, createContext };

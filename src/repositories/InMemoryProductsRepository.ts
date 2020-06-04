@@ -19,5 +19,4 @@ const productsRespository: ProductsRepository = {
   deleteProduct: (guid: string): void => {},
 };
 
-
 export default productsRespository;

@@ -2,7 +2,7 @@ import { Application, Context, Router, superoak } from "../deps.ts";
 
 Deno.test("should launch application with routing", async () => {
   const router = new Router();
-  router.get("/", ({response}: Context) => {
+  router.get("/", ({ response }: Context) => {
     response.body = "Hello Deno!";
   });
 
