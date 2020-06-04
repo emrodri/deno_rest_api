@@ -9,6 +9,12 @@ Clone the project and launch with
 ```
 deno run --allow-net server.ts
 ``` 
+or
+
+```
+make
+``` 
+
 No local dependencies installing, package.json, npm or yarn used, only "deno run" !!
 
 
@@ -41,6 +47,11 @@ Yai!!!
 You can run the testing with 
 ```
 deno test
+``` 
+or
+
+```
+make test
 ``` 
 
 ## CI
