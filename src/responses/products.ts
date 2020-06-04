@@ -6,7 +6,7 @@ import {
   unprocessableEntityResponse,
 } from "./common.ts";
 
-import { Product } from "../types.ts";
+import { Product } from "../../domain/product.ts";
 import { Response } from "../../deps.ts";
 
 const productResponse = (response: any, product: Product) =>

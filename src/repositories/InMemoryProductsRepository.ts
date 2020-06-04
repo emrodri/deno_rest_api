@@ -1,4 +1,4 @@
-import { Product } from "../types.ts";
+import { Product } from "../../domain/product.ts";
 import ProductsRepository from "./productsRepository.ts";
 import inMemoryDb from "../storage/db.ts";
 

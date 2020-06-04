@@ -1,13 +1,10 @@
-import {
-  addProduct,
-  deleteProduct,
-  getProduct,
-  getProducts,
-  udpateProduct,
-} from "../controllers/products.ts";
-
 import { Router } from "../../deps.ts";
+import addProduct from "../controllers/products_add_product.ts";
+import deleteProduct from "../controllers/products_delete_product.ts";
+import getProduct from "../controllers/products_get_product.ts";
+import getProducts from "../controllers/products_get_all_controller.ts";
 import productsRespository from "../repositories/InMemoryProductsRepository.ts";
+import udpateProduct from "../controllers/products_update_product.ts";
 
 const productsRouter = new Router();
 

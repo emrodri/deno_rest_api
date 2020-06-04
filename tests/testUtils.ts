@@ -1,25 +1,3 @@
-import { Product } from "../src/types.ts";
-import ProductsRepository from "../src/repositories/productsRepository.ts";
-
-const createTestProductRepository = (
-  products: Product[] = [],
-): ProductsRepository => {
-  return {
-    getProducts: () => [...products],
-    getProduct: (guid: string) => products.find((p: Product) => p.id === guid),
-    addProduct: (product: Product) => {
-      products = [...products, product];
-    },
-    updatedProduct: (guid: string, updatedProduct: Product) => {
-      const updatedProducts = products.map((p: Product) =>
-        p.id === guid ? updatedProduct : p
-      );
-      products = [...updatedProducts];
-    },
-    deleteProduct: (guid: string): void => {},
-  };
-};
-
 const createContext = (contextOptions: ContextOptions = {}) => {
   const defaultContext: ContextOptions = {
     request: {
@@ -32,6 +10,14 @@ const createContext = (contextOptions: ContextOptions = {}) => {
   };
   return { ...defaultContext, ...contextOptions };
 };
+
+const createRequest = (body: any) => {
+  return {
+    body: async () => ({ value: body }),
+    hasBody: true,
+  };
+};
+
 interface ContextOptions {
   request?: {
     body: () => Promise<{ value: any }>;
@@ -42,4 +28,4 @@ interface ContextOptions {
   };
   params?: object | undefined;
 }
-export { createTestProductRepository, createContext };
+export { createContext, createRequest };

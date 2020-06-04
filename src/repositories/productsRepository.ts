@@ -1,4 +1,5 @@
-import { Product } from "../types.ts";
+import { Product } from "../../domain/product.ts";
+
 interface ProductsRepository {
   getProducts: () => Product[];
   getProduct: (guid: string) => Product | undefined;
