@@ -1,12 +1,12 @@
-import { createContext, createRequest } from "../testUtils.ts";
-import { generateProductMock, generateProductsMock } from "../testMocks.ts";
+import { createContext, createRequest } from "../../testUtils.ts";
+import { generateProductMock, generateProductsMock } from "../../testMocks.ts";
 
-import { Product } from "../../src/products/domain/product.ts";
-import { assertEquals } from "../../deps.ts";
+import { Product } from "../../../src/products/domain/product.ts";
+import { assertEquals } from "../../../deps.ts";
 import createTestProductRepository from "./testMockRepository.ts";
-import productsUpdateController from "../../src/controllers/products_update_controller.ts";
+import productsUpdateController from "../../../src/controllers/products_update_controller.ts";
 
-Deno.test("update product should update a product info", async () => {
+Deno.test("controller product update: should response a 200 if updated product", async () => {
   const product: Product = generateProductMock();
   product.name = "Original name";
   const repository = createTestProductRepository([product]);

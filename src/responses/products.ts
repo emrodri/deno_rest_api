@@ -1,5 +1,6 @@
 import {
   badRequestResponse,
+  conflictResponse,
   createdResponse,
   notFoundResponse,
   successResponse,
@@ -22,6 +23,13 @@ const productBadRequestResponse = (response: Response, message: string) =>
 const productNotValidResponse = (response: Response) =>
   unprocessableEntityResponse(response, "Product data not valid");
 
+const productNotCreatedResponse = (
+  response: Response,
+  message = "Product not created",
+) => {
+  conflictResponse(response, message);
+};
+
 const productCreatedResponse = (response: Response) =>
   createdResponse(response);
 
@@ -42,4 +50,5 @@ export {
   productNotValidResponse,
   productUpdatedResponse,
   productDeleteResponse,
+  productNotCreatedResponse,
 };

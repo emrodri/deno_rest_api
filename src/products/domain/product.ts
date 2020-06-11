@@ -5,11 +5,11 @@ interface Product {
   price: number;
 }
 
-const isProductId = (id: string | undefined): id is string => {
-  return typeof id !== "undefined";
+const isProductId = (id: any): id is string => {
+  return typeof id === "string";
 };
 
-const isProduct = (product: Product | undefined): product is Product => {
+const isProduct = (product: any): product is Product => {
   return (
     typeof product !== "undefined" &&
     typeof product.id === "string" &&

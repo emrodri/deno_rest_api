@@ -6,7 +6,7 @@ import {
 } from "../responses/products.ts";
 
 import ProductsRepository from "../products/domain/productsRepository.ts";
-import getProductAction from "../products/domain/getProductAction.ts";
+import getProductAction from "../products/actions/getProductAction.ts";
 
 // @desc    Get single product
 // @route   GET /api/v1/products/:id

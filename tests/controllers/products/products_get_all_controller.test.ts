@@ -1,10 +1,10 @@
-import { assertEquals } from "../../deps.ts";
-import { createContext } from "../testUtils.ts";
+import { assertEquals } from "../../../deps.ts";
+import { createContext } from "../../testUtils.ts";
 import createTestProductRepository from "./testMockRepository.ts";
-import { generateProductsMock } from "../testMocks.ts";
-import productsGetAllController from "../../src/controllers/products_get_all_controller.ts";
+import { generateProductsMock } from "../../testMocks.ts";
+import productsGetAllController from "../../../src/controllers/products_get_all_controller.ts";
 
-Deno.test("getProducts should return the list of all products in repository", () => {
+Deno.test("controller product getAll: should response a 200 with the resources retrieved", () => {
   const { response } = createContext();
   const products = generateProductsMock(5);
   const repository = createTestProductRepository(products);

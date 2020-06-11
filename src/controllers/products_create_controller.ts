@@ -2,12 +2,12 @@ import { Product, isProduct } from "../products/domain/product.ts";
 import {
   productBadRequestResponse,
   productCreatedResponse,
+  productNotCreatedResponse,
   productNotValidResponse,
 } from "../responses/products.ts";
 
 import ProductsRepository from "../products/domain/productsRepository.ts";
-import createProductAction from "../products/domain/createProductAction.ts";
-import { v4 } from "../../deps.ts";
+import createProductAction from "../products/actions/createProductAction.ts";
 
 // @desc    Add a product
 // @route   POST /api/v1/products
@@ -18,16 +18,18 @@ const productsCreateController = (productsRepository: ProductsRepository) =>
       productBadRequestResponse(response, "No data for product");
       return;
     }
-
     const product: Product = body.value;
-    product.id = v4.generate();
 
     if (!isProduct(product)) {
       productNotValidResponse(response);
       return;
     }
-
-    createProductAction(productsRepository, product);
+    try {
+      createProductAction(productsRepository, product);
+    } catch (err) {
+      productNotCreatedResponse(response, "Exisiting product Id");
+      return;
+    }
     productCreatedResponse(response);
   };
 export default productsCreateController;

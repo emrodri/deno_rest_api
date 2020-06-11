@@ -1,5 +1,5 @@
-import { Product } from "./product.ts";
-import ProductsRepository from "./productsRepository.ts";
+import { Product } from "../domain/product.ts";
+import ProductsRepository from "../domain/productsRepository.ts";
 
 const getProductAction = (
   repository: ProductsRepository,

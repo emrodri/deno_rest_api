@@ -1,5 +1,5 @@
 import ProductsRepository from "../products/domain/productsRepository.ts";
-import getAllProductsAction from "../products/domain/getAllProductsAction.ts";
+import getAllProductsAction from "../products/actions/getAllProductsAction.ts";
 import { productsResponse } from "../responses/products.ts";
 
 // @desc    Get all products

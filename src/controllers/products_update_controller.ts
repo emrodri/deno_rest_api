@@ -7,7 +7,7 @@ import {
 } from "../responses/products.ts";
 
 import ProductsRepository from "../products/domain/productsRepository.ts";
-import updateProductAction from "../products/domain/updateProductAction.ts";
+import updateProductAction from "../products/actions/updateProductAction.ts";
 
 // @desc    Update a product
 // @route   PUT /api/v1/products/:id

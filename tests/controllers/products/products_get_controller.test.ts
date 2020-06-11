@@ -1,10 +1,10 @@
-import { assertEquals } from "../../deps.ts";
-import { createContext } from "../testUtils.ts";
+import { assertEquals } from "../../../deps.ts";
+import { createContext } from "../../testUtils.ts";
 import createTestProductRepository from "./testMockRepository.ts";
-import { generateProductMock } from "../testMocks.ts";
-import productsGetController from "../../src/controllers/products_get_controller.ts";
+import { generateProductMock } from "../../testMocks.ts";
+import productsGetController from "../../../src/controllers/products_get_controller.ts";
 
-Deno.test("getProduct should retrive a item by his id", () => {
+Deno.test("controller product get   : should response a 200 with product info retrieved", () => {
   const product = generateProductMock();
   const params = { id: product.id };
   const { response } = createContext({ params });

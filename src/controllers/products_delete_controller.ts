@@ -6,7 +6,7 @@ import {
 } from "../responses/products.ts";
 
 import ProductsRepository from "../products/domain/productsRepository.ts";
-import deleteProductAction from "../products/domain/deleteProductAction.ts";
+import deleteProductAction from "../products/actions/deleteProductAction.ts";
 
 // @desc    Delete a product
 // @route   DELETE /api/v1/products/:id

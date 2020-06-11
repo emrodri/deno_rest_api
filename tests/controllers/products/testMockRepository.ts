@@ -1,5 +1,5 @@
-import { Product } from "../../src/products/domain/product.ts";
-import ProductsRepository from "../../src/products/domain/productsRepository.ts";
+import { Product } from "../../../src/products/domain/product.ts";
+import ProductsRepository from "../../../src/products/domain/productsRepository.ts";
 
 const createTestProductRepository = (
   products: Product[] = [],

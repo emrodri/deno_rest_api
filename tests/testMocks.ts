@@ -1,5 +1,6 @@
 import { Product } from "../src/products/domain/product.ts";
 import { v4 } from "../deps.ts";
+const generateUUID = () => v4.generate();
 const generateProductMock = (): Product => ({
   id: v4.generate(),
   name: "",
@@ -11,4 +12,4 @@ const generateProductsMock = (items: number): Product[] => {
   return [...Array(items)].map(() => generateProductMock());
 };
 
-export { generateProductMock, generateProductsMock };
+export { generateProductMock, generateProductsMock, generateUUID };

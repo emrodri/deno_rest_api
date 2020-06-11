@@ -6,7 +6,7 @@ const HTTP_RESPONSE_BAD_REQUEST = 400;
 const HTTP_RESPONSE_NOT_FOUND = 404;
 const HTTP_RESPONSE_UNPROCESSABLE_ENTITY = 422;
 const HTTP_RESPONSE_SERVER_ERROR = 500;
-
+const HTTP_RESPONSE_CONFLICT = 409;
 const createdResponse = (response: Response) => {
   response.status = HTTP_RESPONSE_CREATED;
   response.body = { success: true };
@@ -63,12 +63,24 @@ const serverErrorResponse = (
   };
 };
 
+const conflictResponse = (
+  response: Response,
+  message = "Not created, conflict",
+) => {
+  response.status = HTTP_RESPONSE_CONFLICT;
+  response.body = {
+    success: false,
+    message,
+  };
+};
+
 export {
-  successResponseWithData,
-  successResponse,
-  createdResponse,
   badRequestResponse,
+  conflictResponse,
+  createdResponse,
   notFoundResponse,
   serverErrorResponse,
+  successResponse,
+  successResponseWithData,
   unprocessableEntityResponse,
 };

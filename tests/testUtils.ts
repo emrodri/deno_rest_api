@@ -5,6 +5,7 @@ const createContext = (contextOptions: ContextOptions = {}) => {
       hasBody: true,
     },
     response: {
+      status: 0,
       body: "",
     },
   };
@@ -24,7 +25,8 @@ interface ContextOptions {
     hasBody: boolean;
   };
   response?: {
-    body: string;
+    status: number;
+    body: any;
   };
   params?: object | undefined;
 }
